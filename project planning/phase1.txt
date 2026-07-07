@@ -1,0 +1,1 @@
+first we setup code for angular front call and create basic project structure
