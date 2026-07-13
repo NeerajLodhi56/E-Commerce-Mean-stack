@@ -1,0 +1,25 @@
+body{
+    font-family: Arial;
+    margin: 30px;
+}
+
+form{
+    width: 350px;
+}
+
+input,
+select,
+textarea{
+    width: 100%;
+    padding: 8px;
+}
+
+input[type="radio"],
+input[type="checkbox"]{
+    width: auto;
+}
+
+button{
+    padding: 10px;
+    width: 100%;
+}
