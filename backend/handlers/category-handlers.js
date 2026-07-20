@@ -1,13 +1,48 @@
-const category = require('./../db/category')
-async function addCategory(model){
-let model1 = req.body;
+const Category = require("../db/category");
 
-let category = new Category({
-    name: model1.name,
-})
+const addCategory = async (req, res) => {
+    try {
+        console.log("here..");
 
-category.save();
-res.send(category.object());
-}
+        const postModel = req.body;
 
-module.exports = router;
+        const category = new Category({
+            name: postModel.name
+        });
+
+        await category.save();
+
+        res.send(category.toObject());
+    } catch (error) {
+        res.status(500).send({
+            message: error.message
+        });
+    }
+};
+
+const updateCategory = async (req, res) => {
+    try {
+        console.log("here....");
+
+        const putModel = req.body;
+        const id = req.params.id;
+
+        await Category.findOneAndUpdate(
+            { _id: id },
+            putModel
+        );
+
+        res.send({
+            message: "ok"
+        });
+    } catch (error) {
+        res.status(500).send({
+            message: error.message
+        });
+    }
+};
+
+module.exports = {
+    addCategory,
+    updateCategory
+};
