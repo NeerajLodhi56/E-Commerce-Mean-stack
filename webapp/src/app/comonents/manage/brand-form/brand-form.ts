@@ -2,19 +2,20 @@ import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { Category } from '../../../services/category';
 import { ActivatedRoute, Router } from '@angular/router';
+import { BrandService } from '../../../services/brand-service';
 
 
 @Component({
-  selector: 'app-category-form',
+  selector: 'app-brand-form',
   imports: [FormsModule, MatButtonModule, MatInputModule],
-  templateUrl: './category-form.html',
-  styleUrl: './category-form.scss',
+  templateUrl: './brand-form.html',
+  styleUrl: './brand-form.scss',
 })
-export class CategoryForm {
+export class BrandForm {
+
 name!:string;
-categoriesService = inject(Category);
+brandService = inject(BrandService);
 router  = inject(Router)
 route = inject(ActivatedRoute)
 isEdit = false;
@@ -25,7 +26,7 @@ this.id = this.route.snapshot.params['id'];
 console.log(this.id);
 if(this.id){
 this.isEdit = true;
-this.categoriesService.getCategoryById(this.id).subscribe((result:any)=>{
+this.brandService.getBrandById(this.id).subscribe((result:any)=>{
 console.log(result);
 this.name = result.name
 })
@@ -33,16 +34,18 @@ this.name = result.name
 }
   add(){
 
-this.categoriesService.addCategory(this.name).subscribe((result)=>{
-  alert("category added")
-  this.router.navigateByUrl("/admin/categories")
+this.brandService.addBrand(this.name).subscribe((result)=>{
+  alert("Brand added")
+  this.router.navigateByUrl("/admin/brands")
 })
   }
 
   update(){
-this.categoriesService.updateCategory(this.id, this.name).subscribe((result)=>{
-  alert("category updated")
-  this.router.navigateByUrl("/admin/categories")
+this.brandService.updateBrand(this.id, this.name).subscribe((result)=>{
+  alert("Brand updated")
+  this.router.navigateByUrl("/admin/brands")
 })
   }
+
+
 }
