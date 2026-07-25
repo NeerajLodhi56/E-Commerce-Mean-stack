@@ -5,40 +5,41 @@ import {MatSort, MatSortModule} from '@angular/material/sort';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
-import { Category } from '../../../services/category';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterLink } from '@angular/router';
-import { MyCategory } from '../../../types/category';
+import { Brand } from '../../../types/brand';
+import { BrandService } from '../../../services/brand-service';
 @Component({
-  selector: 'app-categories',
+  selector: 'app-brands',
   imports: [MatFormFieldModule, MatInputModule, MatTableModule, MatSortModule, MatPaginatorModule,MatButtonModule,RouterLink],
-  templateUrl: './categories.html',
-  styleUrl: './categories.scss',
+  templateUrl: './brands.html',
+  styleUrl: './brands.scss',
 })
-export class Categories   {
- displayedColumns: string[] = ['id', 'name', 'action'];
-  dataSource!: MatTableDataSource<MyCategory>;
+export class Brands {
+
+displayedColumns: string[] = ['id', 'name', 'action'];
+  dataSource!: MatTableDataSource<Brand>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-categoryService = inject(Category)
+brandServices = inject(BrandService)
   constructor() {
     this.dataSource = new MatTableDataSource([] as any);
   }
 
   ngOnInit() {
-    this.getCategories()
+    this.getBrands()
   }
-  getCategories(){
-    this.categoryService.getCategories().subscribe((data)=>{
+  getBrands(){
+    this.brandServices.getBrands().subscribe((data)=>{
       this.dataSource = new MatTableDataSource( data as any );
     })
   }
-  deleteCategory(id:string){
-    this.categoryService.deleteCategory(id).subscribe({
+  deleteBrand(id:string){
+    this.brandServices.deleteBrand(id).subscribe({
       next:(data)=>{
-      alert("category deleted")
-        this.getCategories()
+      alert("brand deleted" )
+        this.getBrands()
       },
       error:(err)=>{
         console.log(err)
@@ -58,5 +59,5 @@ categoryService = inject(Category)
       this.dataSource.paginator.firstPage();
     }
   }
-}
 
+}

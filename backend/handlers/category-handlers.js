@@ -12,6 +12,19 @@ const getCategories = async (req, res) => {
     }
 };
 
+const getCategoryById = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const category = await Category.findOne({ _id: id });
+        res.send(category);
+    } catch (error) {
+        res.status(500).send({
+            message: error.message
+        });
+    }
+};
+
+
 const addCategory = async (req, res) => {
     try {
         const postModel = req.body;
@@ -61,9 +74,11 @@ const deleteCategory = async (req, res) => {
     }
 };
 
+
 module.exports = {
     getCategories,
     addCategory,
     updateCategory,
-    deleteCategory
+    deleteCategory,
+    getCategoryById
 };
