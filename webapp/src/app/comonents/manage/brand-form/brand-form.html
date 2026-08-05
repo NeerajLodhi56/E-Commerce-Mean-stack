@@ -2,15 +2,15 @@
 @if(isEdit){
   <h1>Update Brands</h1>
 }@else{
-    <h1>Add New Brands</h1>
+    <h4 class="text-xs">Add New Brands</h4>
 }
-<form class="shadow-sm w-96 p-4">
+<form class="shadow-sm w-96 p-6">
 
-  <div class="flex">
-    <div class="w-full gap-4">
+  <div class="flex flex-wrap">
+    <div class="w-full">
       <mat-form-field>
         <mat-label>Name</mat-label>
-        <input matInput type="text" [(ngModel)]="name" name="name">
+        <input matInput type="text" [(ngModel)]="name" name="name" placeholder="enter brand name">
       </mat-form-field>
     </div>
 <div class="w-full flex justify-center">
@@ -19,7 +19,7 @@
 }@else{
     <button mat-raised-button color="primary" [disabled]="!name" (click)="add()">Add</button>
 }
-   
+
 </div>
   </div>
 </form>
